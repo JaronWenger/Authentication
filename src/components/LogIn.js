@@ -57,7 +57,15 @@ export const LogIn = ({ onSwitchToSignUp }) => {
 
                     <Button variant="contained" type="submit">Sign In</Button>
 
-                    <Button variant="text" onClick={() => navigate('/signup')}>Create Account</Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}> {/* Applying flexbox */}
+                    <Button variant="text" onClick={() => navigate('/signup')}>
+                        Create Account
+                    </Button>
+
+                    <Button variant="text" type="button" onClick={() => navigate('/reset')}>
+                        Forgot Password
+                    </Button>
+                    </div>
 
                 </form>
             </div>

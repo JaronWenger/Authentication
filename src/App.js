@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; 
 
 import { Account } from "./components/Account";
 import Status from "./components/Status";
@@ -9,6 +9,7 @@ import { LogIn } from "./components/LogIn";
 import { SignUp } from "./components/SignUp";
 
 import { UserProvider } from './components/UserContext'; 
+import ResetPassword from "./components/ResetPassword";
 
 
 
@@ -34,6 +35,11 @@ function App() {
 
           {/* Route for account confirmation */}
           <Route path="/confirm" element={<ConfirmAccount />} />
+
+          {/* Route for account resetPassword */}
+          <Route path="/reset" element={<ResetPassword />} />
+
+
 
 
         </Routes>
