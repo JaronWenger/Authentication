@@ -9,11 +9,10 @@ export const UserProvider = ({ children }) => {
     email: '',
     password: '',
   });
-
+  //These functions update the context's state with the respective user data. 
   const setUserEmail = (email) => {
     setUser((prevState) => ({ ...prevState, email }));
   };
-
   const setUserPassword = (password) => {
     setUser((prevState) => ({ ...prevState, password }));
   };

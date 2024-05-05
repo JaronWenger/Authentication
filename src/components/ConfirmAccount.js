@@ -10,12 +10,13 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 export const ConfirmAccount = () => {
-  const { user } = useContext(UserContext); // Access user data from context
   const [confirmationCode, setConfirmationCode] = useState('');
   const [error, setError] = useState(null); // State for error messages
-
   const navigate = useNavigate(); // Hook for navigation
   const { authenticate } = useContext(AccountContext); 
+
+  //ConfirmAccount.js
+  const { user } = useContext(UserContext); // Access user data from context
 
   const onConfirm = (event) => {
     event.preventDefault();
@@ -40,9 +41,9 @@ export const ConfirmAccount = () => {
               console.error("Authentication failed after confirmation:", authErr);
               setError("Failed to authenticate after confirmation.");
             });
-                }
-                });
-            };
+        };
+    });
+  };
 
   return (
     <div className="container">

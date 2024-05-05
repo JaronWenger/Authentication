@@ -36,15 +36,14 @@ export const SignUp = ({ onSwitchToLogin }) => {
 
 
 
-            // sign up the user
+        // sign up the user
         UserPool.signUp(email, password, [], null, (err, data) => {
             if (err) {
                 console.error("Sign-up error:", err);
                 setError(err.message); // Use Cognito's error message
             } else {
                 console.log("Sign-up successful:", data);
-        
-                        // Store email and password in UserContext
+                // Store email and password in UserContext
                 setUserEmail(email);
                 setUserPassword(password);
                 // Redirect to authentication or confirmation route after sign-up

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Navigate } from 'react-router-dom';
+
+//ProtectedRoute.js
 import { AccountContext } from './Account';
 
 const ProtectedRoute = ({ element }) => {
@@ -22,7 +24,6 @@ const ProtectedRoute = ({ element }) => {
   if (isLoading) {
     return <div>Loading...</div>; // Show loading indicator while checking session
   }
-
   return isAuthenticated ? (
     element // Render the component if authenticated
   ) : (
@@ -31,3 +32,5 @@ const ProtectedRoute = ({ element }) => {
 };
 
 export default ProtectedRoute;
+
+
