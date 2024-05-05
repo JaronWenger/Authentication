@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; 
 
 import { Account } from "./components/Account";
-import Status from "./components/Status";
+import ProtectedRoute from './components/ProtectedRoute'; 
 import Welcome from "./components/Welcome";
 import { ConfirmAccount } from "./components/ConfirmAccount";
 import { LogIn } from "./components/LogIn";
@@ -19,7 +19,6 @@ function App() {
     <UserProvider> {/* Wrap the application with UserProvider */}
     <Account>
       <Router>
-        <Status />
         <Routes>
           {/* Route for login/signup */}
           <Route path="/" element={<LogIn />} />
@@ -27,8 +26,11 @@ function App() {
           {/* Route for login/signup */}
           <Route path="/signup" element={<SignUp />} />
 
-          {/* Route for the welcome page */}
-          <Route path="/welcome" element={<Welcome />} />
+          <Route
+            path="/welcome"
+            element={<ProtectedRoute element={<Welcome />} />} // Protecting the /welcome route
+          />
+
 
           {/* Redirect to login if the route does not exist */}
           <Route path="*" element={<Navigate to="/" />} />
@@ -38,9 +40,6 @@ function App() {
 
           {/* Route for account resetPassword */}
           <Route path="/reset" element={<ResetPassword />} />
-
-
-
 
         </Routes>
       </Router>
