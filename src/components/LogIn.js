@@ -46,7 +46,7 @@ export const LogIn = ({ onSwitchToSignUp }) => {
                     <h2>Log In</h2>
 
                     {error && (
-                    <div style={{ color: 'red', padding: '10px', border: '1px solid red' }}>
+                    <div style={{ color: 'red', padding: '5px', border: '1px solid red' }}>
                         {error} {/* Display error message */}
                     </div>
                     )}

@@ -74,9 +74,9 @@ const ResetPassword = () => {
 
   return (
     <div className="container">
-      <form onSubmit={step === 1 ? requestReset : completeReset}>
+      <form className="form-container" onSubmit={step === 1 ? requestReset : completeReset}>
         {step === 1 ? (
-          <div>
+          <div className="step-container">
             <h2>Request Password Reset</h2>
 
             {error && (
@@ -93,9 +93,12 @@ const ResetPassword = () => {
             />
 
             <Button variant="contained" type="submit">Request Reset Code</Button>
+            <Button variant="text" onClick={() => navigate('/')}>
+                        Back
+                    </Button>
           </div>
         ) : (
-          <div>
+          <div className="step-container">
             <h2>Reset Your Password</h2>
 
             {error && (
@@ -120,6 +123,7 @@ const ResetPassword = () => {
             />
 
             <Button variant="contained" type="submit">Reset Password</Button>
+
           </div>
         )}
       </form>

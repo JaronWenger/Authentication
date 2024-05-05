@@ -46,7 +46,7 @@ export const ConfirmAccount = () => {
 
   return (
     <div className="container">
-      <form onSubmit={onConfirm}>
+      <form className="form-container" onSubmit={onConfirm}>
         <h2>Confirm Your Account</h2>
 
         {error && (
