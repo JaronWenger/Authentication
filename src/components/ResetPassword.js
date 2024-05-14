@@ -5,12 +5,36 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 const ResetPassword = () => {
   const [step, setStep] = useState(1); // Step 1: Request reset, Step 2: Complete reset
   const [email, setEmail] = useState('');
   const [resetCode, setResetCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [error, setError] = useState(null);
+  const [passwordRequirements, setPasswordRequirements] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    special: false,
+});
+
+const handlePasswordChange = (event) => {
+  const newPassword = event.target.value;
+  setNewPassword(newPassword);
+
+  // Update password requirements
+  setPasswordRequirements({
+      length: newPassword.length >= 8,
+      lowercase: /[a-z]/.test(newPassword),
+      uppercase: /[A-Z]/.test(newPassword),
+      number: /\d/.test(newPassword),
+      special: /[@$!%*?&]/.test(newPassword),
+  });
+};
 
   const navigate = useNavigate(); // Hook for navigation
 
@@ -119,8 +143,45 @@ const ResetPassword = () => {
               variant="outlined"
               type="text" 
               value={newPassword}
-              onChange={(event) => setNewPassword(event.target.value)}
+              onChange={handlePasswordChange}
             />
+
+{newPassword && ( // Only render if password is not empty
+                    <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column' }}>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.length} disabled />}
+                                label="8 Characters"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.lowercase} disabled />}
+                                label="Lowercase letter"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.uppercase} disabled />}
+                                label="Uppercase letter"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.number} disabled />}
+                                label="Number"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.special} disabled />}
+                                label="Special symbol"
+                            />
+                        </div>
+                    </div>
+                )}
+
+            
 
             <Button variant="contained" type="submit">Reset Password</Button>
 

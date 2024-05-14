@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react'
 import UserPool from '../UserPool';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom'; 
 import UserContext from './UserContext'; // Importing UserContext
 
@@ -13,6 +15,13 @@ export const SignUp = ({ onSwitchToLogin }) => {
         const [error, setError] = useState(null); // State to track error messages
         const { setUserEmail, setUserPassword } = useContext(UserContext);
         const navigate = useNavigate();
+        const [passwordRequirements, setPasswordRequirements] = useState({
+            length: false,
+            lowercase: false,
+            uppercase: false,
+            number: false,
+            special: false,
+        });
 
         // Define a custom password validation function
         const isPasswordValid = (password) => {
@@ -20,6 +29,19 @@ export const SignUp = ({ onSwitchToLogin }) => {
             return passwordRegex.test(password);
         };
 
+        const handlePasswordChange = (event) => {
+            const newPassword = event.target.value;
+            setPassword(newPassword);
+    
+            // Update password requirements
+            setPasswordRequirements({
+                length: newPassword.length >= 8,
+                lowercase: /[a-z]/.test(newPassword),
+                uppercase: /[A-Z]/.test(newPassword),
+                number: /\d/.test(newPassword),
+                special: /[@$!%*?&]/.test(newPassword),
+            });
+        };
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -67,7 +89,41 @@ export const SignUp = ({ onSwitchToLogin }) => {
 
             <TextField label="Email" variant="outlined" value={email} onChange = {(event) => setEmail(event.target.value)}/>
 
-            <TextField label="Password" variant="outlined" value={password} onChange = {(event) => setPassword(event.target.value)}/>
+            <TextField label="Password" variant="outlined" value={password} onChange={handlePasswordChange}/>
+            {password && ( // Only render if password is not empty
+                    <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column' }}>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.length} disabled />}
+                                label="8 Characters"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.lowercase} disabled />}
+                                label="Lowercase letter"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.uppercase} disabled />}
+                                label="Uppercase letter"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.number} disabled />}
+                                label="Number"
+                            />
+                        </div>
+                        <div>
+                            <FormControlLabel
+                                control={<Checkbox checked={passwordRequirements.special} disabled />}
+                                label="Special symbol"
+                            />
+                        </div>
+                    </div>
+                )}
 
             <Button variant="contained" type="submit">Create Account</Button>
 
